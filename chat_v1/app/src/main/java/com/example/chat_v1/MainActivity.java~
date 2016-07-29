@@ -1,0 +1,153 @@
+package com.example.chat_v1;
+
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class MainActivity extends AppCompatActivity {
+
+    private MessageAdapter messAdap;
+    private ListView listMessageView;
+    private EditText chatText;
+    private ImageButton btnSend;
+    private Socket mSocket;
+    private PrintWriter output;
+    private String message;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_chat);
+
+        btnSend = (ImageButton) findViewById(R.id.button_send);
+
+        listMessageView = (ListView) findViewById(R.id.list_view_message);
+
+        messAdap = new MessageAdapter(getApplicationContext(), R.layout.layout_message);
+
+        chatText = (EditText) findViewById(R.id.chat);
+
+        btnSend.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if(!chatText.getText().toString().equals("")){
+                    message = chatText.getText().toString();
+                    messAdap.add(new Message(message));
+                    chatText.setText("");
+
+                    MyClientTask myClientTask = new MyClientTask("10.0.2.2", 3000);
+                    myClientTask.execute();
+
+					/*new Thread(new	Runnable(){
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							try {
+								mSocket = new Socket("10.157.101.37", 3000);
+								output = new PrintWriter(mSocket.getOutputStream());
+								output.write(message);
+								output.flush();
+								output.close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+
+					}).start();*/
+                }
+            }
+        });
+
+        listMessageView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        listMessageView.setAdapter(messAdap);
+    }
+
+   /* @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+			mSocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }*/
+
+    public class MyClientTask extends AsyncTask<Void, Void, Void> {
+
+        String dstAddress;
+        int dstPort;
+        String response = "";
+
+        MyClientTask(String addr, int port){
+            dstAddress = addr;
+            dstPort = port;
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+            Socket socket = null;
+
+            try {
+                socket = new Socket(dstAddress, dstPort);
+
+                ByteArrayOutputStream byteArrayOutputStream =
+                        new ByteArrayOutputStream(1024);
+                byte[] buffer = new byte[1024];
+
+                int bytesRead;
+                InputStream inputStream = socket.getInputStream();
+
+    	    /*
+    	     * notice:
+    	     * inputStream.read() will block if no data return
+    	     */
+                while ((bytesRead = inputStream.read(buffer)) != -1){
+                    byteArrayOutputStream.write(buffer, 0, bytesRead);
+                    response += byteArrayOutputStream.toString("UTF-8");
+                }
+
+            } catch (UnknownHostException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                response = "UnknownHostException: " + e.toString();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                response = "IOException: " + e.toString();
+            }finally{
+                if(socket != null){
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            messAdap.add(new Message(response));
+            super.onPostExecute(result);
+        }
+    }
+}

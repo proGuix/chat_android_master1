@@ -1,0 +1,17 @@
+{
+  "name": "serveur_node",
+  "version": "1.0.0",
+  "description": "serveur for android chat",
+  "main": "server.js",
+  "dependencies": {
+    "mysql": "^2.10.2",
+    "socket.io": "^0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "guillaume velay",
+  "license": "ISC"
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/picture_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_face_black_36dp"
+            android:paddingRight="0dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:paddingLeft="10dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/layout_log_pseudo"
+            android:textColor="@color/color_profile_titles"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/user"
+            android:textColor="@color/color_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:inputType="textNoSuggestions"
+            android:maxEms="15"
+            android:paddingTop="0dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="0dp" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/layout_description"
+            android:textColor="@color/color_profile_titles"
+            android:clickable="false" />
+
+        <TextView
+            android:id="@+id/description_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:lines="3"
+            android:maxEms="20"
+            android:clickable="false"
+            android:paddingLeft="10dp"/>
+
+        </LinearLayout>
+
+</LinearLayout>

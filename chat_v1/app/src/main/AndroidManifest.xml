@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.chat_v1">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/background"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LogActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.example.chat_v1.action.ReponseActiveSession"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.example.chat_v1.action.getConversation" />
+                <action android:name="com.example.chat_v1.action.ReadMess"/>
+                <action android:name="com.example.chat_v1.action.getUsersStateConnection"/>
+                <action android:name="com.example.chat_v1.action.Unsubscribe"/>
+                <action android:name="com.example.chat_v1.action.GetProfile" />
+                <action android:name="com.example.chat_v1.action.SetPictureProfile" />
+                <action android:name="com.example.chat_v1.action.SetPseudo" />
+                <action android:name="com.example.chat_v1.action.SetPassword" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".SocketService"/>
+    </application>
+
+</manifest>
