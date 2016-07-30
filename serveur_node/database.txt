@@ -1,0 +1,31 @@
+SGBD MySql
+
+host     : 'localhost',
+user     : 'userChatAndroid',
+password : '0123456789',
+database : 'chatandroid'
+
+TABLES :
+
+mysql> describe Chat;
++--------------+------------------+------+-----+---------+----------------+
+| Field        | Type             | Null | Key | Default | Extra          |
++--------------+------------------+------+-----+---------+----------------+
+| id           | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| auteur       | varchar(40)      | NO   |     | NULL    |                |
+| message      | longtext         | NO   |     | NULL    |                |
+| type_message | varchar(255)     | NO   |     | NULL    |                |
+| temps        | varchar(40)      | YES  |     | NULL    |                |
++--------------+------------------+------+-----+---------+----------------+
+
+mysql> describe Log;
++-------------+----------------------+------+-----+---------+-------+
+| Field       | Type                 | Null | Key | Default | Extra |
++-------------+----------------------+------+-----+---------+-------+
+| pseudo      | varchar(40)          | NO   | PRI | NULL    |       |
+| mdp         | varchar(40)          | NO   |     | NULL    |       |
+| connection  | smallint(5) unsigned | NO   |     | NULL    |       |
+| picture     | longtext             | YES  |     | NULL    |       |
+| description | varchar(200)         | YES  |     | NULL    |       |
++-------------+----------------------+------+-----+---------+-------+	
+
